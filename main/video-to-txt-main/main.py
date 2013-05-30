@@ -66,7 +66,7 @@ def CheckInput(MatlabPath,VideoPath,DataPath):
         MainText.insert("1.0","\nThe path to store TXT files is wrong. There is not this path. Please reset the TXT files storage path in the right side.\n")
         time.sleep(Waitingtime)
         return 0
-    elif not len(os.listdir(DataPath))==0:
+    elif not len(os.listdir(DataPath))-1<=0:
         tkMessageBox.showwarning("TXT files path warning","Since the number of TXT files will be very large, please give me a path of \"TXT files path\" in which there is nothing.")
         MainText.insert("1.0","\nSince the number of TXT files will be very large, please give me a path in which there is nothing.\n")
         time.sleep(Waitingtime)
@@ -170,7 +170,9 @@ def MainPlayFunction(DataPath):
     MainText.insert("1.0","\nGet All TXT Files.\n")
     time.sleep(Waitingtime)
     MaxN=len(os.listdir(DataPath))
-    MaxM=(MaxN-1)*3-1
+    MaxM=(MaxN-2)*3+1
+    print MaxM
+    print MaxN
     MainText.insert("1.0","\nNow, begin to play!!.\n")
     time.sleep(Waitingtime)
     MainTextRemainder=MainText.get("1.0","end")
@@ -180,7 +182,7 @@ def MainPlayFunction(DataPath):
     line=fp.readline()
     fp.close()
     MainText.config(height=len(line)*2,width=len(line))
-    while M<=MaxM:
+    while M<MaxM:
         M=3*N+1
         N=N+1
         fp=open(DataPath+"%d.txt"%M)
