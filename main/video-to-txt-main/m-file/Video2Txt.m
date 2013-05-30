@@ -1,4 +1,4 @@
-function ExchangeTure=Video2Txt(VideoPath)
+function ExchangeTure=Video2Txt(VideoPath,DataPath,stepx,stepy,FrameStep)
 % ExchangeTure=Video2Txt(VideoPath)
 %Input: Video path
 %Output: Ture or False
@@ -6,12 +6,22 @@ function ExchangeTure=Video2Txt(VideoPath)
 readerobj=VideoReader(VideoPath);
 vidFrames=read(readerobj);
 ramp=['@@@@@@@######MMMBBHHHAAAA&&GGhh9933XXX222255SSSiiiissssrrrrrrr;;;;;;;;:::::::,,,,,,,........'];
-for FrameNumber=1:3:get(readerobj,'NumberOfFrames')-1
-    fid=fopen(strcat([num2str(FrameNumber),'.txt']),'w');
+FrameStep=fix(FrameStep);
+if FrameStep<=1 || FrameStep>=get(readerobj,'NumberOfFrames')-1
+    FrameStep=3;
+end
+for FrameNumber=1:FrameStep:get(readerobj,'NumberOfFrames')-1
+    fid=fopen(strcat([DataPath,num2str(FrameNumber),'.txt']),'w');
     frame=vidFrames(:,:,:,FrameNumber);
     frame=mean(frame,3);
-    stepx=3;
-    stepy=3;
+    stepx=fix(stepx);
+    if stepx<=0
+        stepx=3;
+    end
+    stepy=fix(stepy);
+    if stepy<=0
+        stepy=3;
+    end
     sizx=fix(size(frame,2)/stepx);
     sizy=fix(size(frame,1)/stepy);
     lumin=zeros(sizy,sizx);
