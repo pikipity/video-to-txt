@@ -171,8 +171,6 @@ def MainPlayFunction(DataPath):
     time.sleep(Waitingtime)
     MaxN=len(os.listdir(DataPath))
     MaxM=(MaxN-2)*3+1
-    print MaxM
-    print MaxN
     MainText.insert("1.0","\nNow, begin to play!!.\n")
     time.sleep(Waitingtime)
     MainTextRemainder=MainText.get("1.0","end")
